@@ -16,7 +16,7 @@ urlpatterns = [
     path('manage/register/',views.register, name='register'),
     path('user profile/', views.user_profile, name='user_profile'),
     path('profile success/', views.profile_success, name='profile_success'),
-    path('vendor_profile_setup/', views.vendor_profile_setup, name='vendor_profile_setup'),
+    #path('vendor_profile_setup/', views.vendor_profile_setup, name='vendor_profile_setup'),
     path('vendor_profile/', views.vendor_profile, name='vendor_profile'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

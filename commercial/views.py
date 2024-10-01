@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate,login as auth_login,logout as auth_
 from django.contrib import messages
 from .models import Products
 from django.contrib.auth.decorators import login_required
-from .models import SellerProfile
 from .models import VendorProfile
 from datetime import datetime
 from .forms import VendorProfileForm
@@ -103,7 +102,7 @@ def register(request):
                 return render(request, 'register.html', {'error': 'Invalid date format. use dd/mm/yyyy'})
 
         # Get or create the user profile record
-        profile, _ = SellerProfile.objects.get_or_create(user=user)
+        profile, _ = VendorProfile.objects.get_or_create(user=user)
         profile.first_name = first_name
         profile.last_name = last_name
         profile.DOB = dob
@@ -128,10 +127,10 @@ def user_profile(request):
 def profile_success(request):
     return render(request, 'profile_success.html')
 
-@login_required
+'''@login_required
 def vendor_profile_setup(request,seller_id):
     #Get the existing seller profile based on the seller id
-    seller_profile = get_object_or_404(SellerProfile, id=seller_id)
+    seller_profile = get_object_or_404(VenProfile, id=seller_id)
     #check if vendor profile for the seller profile already exists
     try:
         vendor_profile = VendorProfile.objects.get(seller_profile=seller_profile,user=user)
@@ -156,7 +155,7 @@ def vendor_profile_setup(request,seller_id):
 
         return redirect('vendor_profile')
     
-    return render(request, 'vendor_profile_setup.html')
+    return render(request, 'vendor_profile_setup.html')'''
 
 def vendor_profile(request):
     return render(request, 'vendor_profile.html')
