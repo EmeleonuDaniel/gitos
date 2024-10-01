@@ -49,6 +49,36 @@
       border: 0px;
       padding: 15px;
     }
+
+    /* General Styles for All Screen Sizes */
+.personal-details-heading {
+    text-align: center;
+    font-size: 28px; /* Default font size */
+    font-weight: bold;
+    margin: 20px 0;
+    color: #333;
+}
+
+/* Responsive for Medium Screens (Tablets and Smaller) */
+@media (max-width: 768px) {
+    .personal-details-heading {
+        font-size: 24px; /* Slightly smaller font for tablets */
+    }
+}
+
+/* Responsive for Small Screens (Mobile) */
+@media (max-width: 480px) {
+    .personal-details-heading {
+        font-size: 20px; /* Smaller font for mobile */
+    }
+}
+
+/* Responsive for Very Small Screens */
+@media (max-width: 320px) {
+    .personal-details-heading {
+        font-size: 18px; /* Further reduce font size for very small screens */
+    }
+}
   </style>
 </head>
 
@@ -117,6 +147,9 @@
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
+            <a href="{% url 'contact_details' %}">
+              <img src="{% static 'images/settings-icon.svg' %}" height="40%"  width="40%" style="margin-left: 40%;" alt="">
+            </a>
           </div>
         </div>
       </nav>
@@ -124,18 +157,22 @@
     <!-- end header section -->
   </div>
 
-
-  <div class="main">
-      <div class="heading_container heading_center">
-        <h2 style="text-align: center;">
-          User Profile
-        </h2>
-      </div>
+<div class="heading_container heading_center"></div>
+      <h2 class="personal-details-heading">USER PROFILE</h2>
+</div>
+<div class="main">
+    
     </div>
     <div class="cal">
-        <p >Username: <span style="font-weight: bold;">{{user.username}}</span></p>
+      <div style="display: flex; flex-direction: row;">
+        <img style="border-radius: 100%; margin-right: 1%;" src="" alt="profile picture"><p ><span style="font-weight: bold; text-transform: capitalize;">{{user.username}}</span></p>
+        </div>
+        {% if user.email %}
         <p>Email Address: <span style="font-weight: bold;">{{user.email}}</span></p>
-        <button><a href="{% url 'manage' %}" style="color: #ffffff;">Become A Giftos Seller</a></button>
+        {% else %}
+        <p>Email Address: <span style="font-weight: bold;">Not specified</span></p>
+        {% endif %}
+        <button><a href="{% url 'manage' %}" style="color: #ffffff;">Become A Giftos Vendor</a></button>
         </div>
   </div>
 

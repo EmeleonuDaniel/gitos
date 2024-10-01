@@ -3,8 +3,10 @@ from .models import Products
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import GroupAdmin
 from .models import VendorProfile
+from .models import UserProfile
 
 admin.site.register(Products)
+admin.site.register(UserProfile)
 admin.site.register(VendorProfile)
 
 class CustomGroupAdmin(GroupAdmin):

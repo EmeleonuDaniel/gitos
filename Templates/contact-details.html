@@ -28,52 +28,95 @@
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
-  <style>
-.main{
-        margin-top: 3%;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        align-items: center;
-        margin-left: 10%;
-        margin-right: 10%;
-    }
-form {
-        display: inline;
-        
+
+<style>
+
+.main {
+    margin-top: 3%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5%; /* Changed from 10% to 5% for smaller screens */
+    margin-right: 5%; /* Changed from 10% to 5% for smaller screens */
 }
+
 input {
-        border: 3px solid black;
-        border-radius: 10px;
-        padding: 5px;
-        width: 30ch;
-    }
-button {  
-    border: none;
+    border: 1px solid grey;
+    margin-top: 2.5%;
+    margin-bottom: 2.5%;
     border-radius: 10px;
-    padding: 8px;
-    color: white;
-    background-color: black;
+    padding: 5px;
+    width: 90%; /* Set to 90% for responsiveness */
+    max-width: 400px; /* Max width for larger screens */
 }
-input:focus, button:focus {
+input:focus, select:focus, option:focus {
+  outline: none;
+}
+
+/* General Label Styling */
+.label {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    display: block;
+}
+
+/* Custom Select Wrapper */
+.custom-select-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+}
+
+/* Hover/Focus State */
+.custom-select:hover,
+.custom-select:focus {
+    border-color: #007bff;
     outline: none;
 }
-label {
-    display: block;
-    font: 1rem 'Fira Sans',sans-serif;
-    }
 
-input,button {
-  margin: 0.5rem 0;
+/* Remove Default Dropdown Arrow in Browsers */
+select::-ms-expand {
+    display: none;
 }
 
-/* General Styles for All Screen Sizes */
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .main {
+        margin-left: 3%; /* Decrease margins for smaller screens */
+        margin-right: 3%;
+    }
+
+    input {
+        width: 95%; /* Wider inputs on smaller screens */
+    }
+
+    .label {
+        font-size: 14px; /* Slightly smaller font on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .label {
+        font-size: 12px; /* Further reduce font size for very small screens */
+    }
+
+    input {
+        padding: 10px; /* Increase padding for better touch targets */
+    }
+}
+
+    /* General Styles for All Screen Sizes */
 .personal-details-heading {
-    text-align: center;
-    font-size: 28px; /* Default font size */
-    font-weight: bold;
-    margin: 20px 0;
-    color: #333;
+  text-align: center;
+  font-size: 28px; /* Default font size */
+  font-weight: bold;
+  margin: 20px 0;
+  color: #333;
 }
 
 /* Responsive for Medium Screens (Tablets and Smaller) */
@@ -96,7 +139,14 @@ input,button {
         font-size: 18px; /* Further reduce font size for very small screens */
     }
 }
-  </style>
+button {
+  background-color: black;
+  color: aliceblue;
+  border-radius: 15px;
+  padding: 5px;
+}
+
+</style>
 </head>
 
 <body>
@@ -171,20 +221,64 @@ input,button {
     <!-- end header section -->
   </div>
 
-<div class="heading_container heading_center">
-    <h2 class="personal-details-heading"> SETUP YOUR VENDOR PROFILE</h2>
+<div class="heading_container heading_center"></div>
+    <h2 class="personal-details-heading">PERSONAL DETAILS</h2>
 </div>
-  <div class="main">
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-    <input class="text" name="BrandName" type="text" placeholder="Enter Your Brand Name" required><br>
-    <input type="url" name="url" id="url" placeholder="Enter Your Whatsapp link https://wa.link/" pattern="https://.*" size="30" required /><br>
-    <label for="imageUpload"> Upload Your Brand Image </label>
-    {{ form.as_p }}
-    <!--<input type="file" accept="image/*" name="profile_picture" required><br>-->
-    <button type="submit">SUBMIT</button>
+
+<div class="main">  
+  <div class="body">
+    <img style="border-radius: 100%; margin-right: 1%;" src="" alt="profile picture">
+    <form method="POST">
+      {csrf_token}
+      <input type="text" placeholder="First Name">
+      <input type="text" placeholder="Last Name">
+      <label class="label" for="location">Select Location</label>
+      <div class="custom-select-wrapper">
+        <div class="rs-select2 js-select-simple select-no-search">
+          <select name="package" id="location" class="custom-select">
+            <option disabled="disabled" selected="selected">Choose a State</option>
+            <option>Abia</option>
+            <option>Adamawa</option>
+            <option>Akwa Ibom</option>
+            <option>Anambra</option>
+            <option>Bauchi</option>
+            <option>Bayelsa</option>
+            <option>Benue</option>
+            <option>Borno</option>
+            <option>Cross River</option>
+            <option>Delta</option>
+            <option>Ebonyi</option>
+            <option>Edo</option>
+            <option>Ekiti</option>
+            <option>Enugu</option>
+            <option>Gombe</option>
+            <option>Imo</option>
+            <option>Jigawa</option>
+            <option>Kaduna</option>
+            <option>Kano</option>
+            <option>Katsina</option>
+            <option>Kebbi</option>
+            <option>Kogi</option>
+            <option>Kwara</option>
+            <option>Lagos</option>
+            <option>Nasarawa</option>
+            <option>Niger</option>
+            <option>Ogun</option>
+            <option>Ondo</option>
+            <option>Osun</option>
+            <option>Oyo</option>
+            <option>Plateau</option>
+            <option>Rivers</option>
+            <option>Sokoto</option>
+            <option>Taraba</option>
+            <option>Yobe</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" >Submit</button>
     </form>
   </div>
+</div>
 
 
   <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">

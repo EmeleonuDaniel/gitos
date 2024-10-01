@@ -124,9 +124,6 @@ def register(request):
 def user_profile(request):
     return render(request, 'user_profile.html')
 
-def profile_success(request):
-    return render(request, 'profile_success.html')
-
 '''@login_required
 def vendor_profile_setup(request,seller_id):
     #Get the existing seller profile based on the seller id
@@ -159,3 +156,6 @@ def vendor_profile_setup(request,seller_id):
 
 def vendor_profile(request):
     return render(request, 'vendor_profile.html')
+
+def contact_details(request):
+    return render(request, 'contact-details.html')
