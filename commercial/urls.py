@@ -15,7 +15,7 @@ urlpatterns = [
     path('manage/', views.manage, name='manage'),
     path('manage/register/',views.register, name='register'),
     path('user profile/', views.user_profile, name='user_profile'),
-    path('vendor_profile/', views.vendor_profile, name='vendor_profile'),
+    path('vendor_profile/', views.vendor_profile, name='vendor_profile'),#from register
     path('contact-details/', views.contact_details, name='contact_details'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

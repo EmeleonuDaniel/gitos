@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from .models import VendorProfile
 from datetime import datetime
 from .forms import VendorProfileForm
+from .models import UserProfile
+from .forms import UserProfileForm
 
 def index(request):
     return render(request, 'index.html')
@@ -157,5 +159,24 @@ def vendor_profile_setup(request,seller_id):
 def vendor_profile(request):
     return render(request, 'vendor_profile.html')
 
+@login_required
 def contact_details(request):
+    if request.method == 'POST':
+        user = request.user
+        first_name = request.POST.get('first_name','').strip()
+        last_name = request.POST.get('last_name','').strip()
+        location = request.POST.get('location','').strip()
+
+        if not first_name and last_name:
+            return render(request, 'register.html', {'error': 'First name nad last name are required'})
+    
+        profile, _ = UserProfile.objects.get_or_create(user=user)
+        profile.first_name = first_name
+        profile.last_name = last_name
+        profile.location = location
+        profile.save()
+
+        return redirect('index')
+
+
     return render(request, 'contact-details.html')

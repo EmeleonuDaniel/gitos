@@ -31,14 +31,21 @@
 
 <style>
 
-.main {
+/*.main {
     margin-top: 3%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     margin-left: 5%; /* Changed from 10% to 5% for smaller screens */
-    margin-right: 5%; /* Changed from 10% to 5% for smaller screens */
+    /*margin-right: 5%; /* Changed from 10% to 5% for smaller screens */
+
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 input {
@@ -140,10 +147,11 @@ select::-ms-expand {
     }
 }
 button {
+  border: 0px;
   background-color: black;
   color: aliceblue;
   border-radius: 15px;
-  padding: 5px;
+  padding: 10px;
 }
 
 </style>
@@ -227,15 +235,24 @@ button {
 
 <div class="main">  
   <div class="body">
-    <img style="border-radius: 100%; margin-right: 1%;" src="" alt="profile picture">
+    <div class="image-upload">
+      <!-- The default image -->
+      <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" id="defaultImage" src="{% static 'images/default user.png' %}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
+      
+      <!-- Hidden file input -->
+      <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="previewImage(event)">
+  </div>
+    {% if error %}
+    <p>{{error}}</p>
+    {% endif %}
     <form method="POST">
-      {csrf_token}
-      <input type="text" placeholder="First Name">
-      <input type="text" placeholder="Last Name">
+      {% csrf_token %}
+      <input type="text" placeholder="First Name" name="first_name" required>
+      <input type="text" placeholder="Last Name" name="last_name" required>
       <label class="label" for="location">Select Location</label>
       <div class="custom-select-wrapper">
         <div class="rs-select2 js-select-simple select-no-search">
-          <select name="package" id="location" class="custom-select">
+          <select name="location" id="location" class="custom-select" required>
             <option disabled="disabled" selected="selected">Choose a State</option>
             <option>Abia</option>
             <option>Adamawa</option>
@@ -367,7 +384,22 @@ button {
 
   <!-- end info section -->
 
+  <script>
+    // Function to trigger the hidden file input when image is clicked
+function triggerUpload() {
+    document.getElementById('imageInput').click();
+}
 
+// Function to preview the uploaded image
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        const output = document.getElementById('defaultImage');
+        output.src = reader.result; // Set the image source to the uploaded file
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+  </script>
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">

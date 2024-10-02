@@ -5,10 +5,14 @@ from django.dispatch import receiver
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, db_index=True,on_delete=models.CASCADE, null=True)
+    first_name = models.CharField(max_length=50,default='Not specified')
+    last_name = models.CharField(max_length=50,default='Not specified')
     profile_picture = models.ImageField(upload_to='profile_pictures/',blank=True,null=True)
+    location = models.CharField(max_length=100, default='Not specified')
 
     def __str__(self):
-        return self.username
+        self.first_name
+        return self.last_name
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -37,8 +41,6 @@ class Product(models.Model):
 
 class VendorProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    first_name = models.CharField(max_length=50,default='Not specified')
-    last_name = models.CharField(max_length=50,default='Not specified')
     DOB = models.DateField(null=True,blank=True)
     gender = models.CharField(max_length=10, default=None,null=True,blank=True)
     address = models.TextField(default='Not specified')
@@ -46,7 +48,7 @@ class VendorProfile(models.Model):
     package = models.CharField(max_length=100,default='Not specified')
     brand_name = models.CharField(max_length=255,default='Not specified')
     WA_link = models.URLField(max_length=200,default='Not specified')
-    profile_picture = models.ImageField(upload_to='images/',null=True,blank=True)
+    brand_picture = models.ImageField(upload_to='images/',null=True,blank=True)
 
     
     
