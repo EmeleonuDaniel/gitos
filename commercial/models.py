@@ -7,7 +7,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, db_index=True,on_delete=models.CASCADE, null=True)
     first_name = models.CharField(max_length=50,default='Not specified')
     last_name = models.CharField(max_length=50,default='Not specified')
-    profile_picture = models.ImageField(upload_to='profile_pictures/',blank=True,null=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/',blank=True,null=True,default='images/default user.png')#specify the default image path
     location = models.CharField(max_length=100, default='Not specified')
 
     def __str__(self):

@@ -171,7 +171,7 @@ def contact_details(request):
             last_name = request.POST.get('last_name','').strip()
             location = request.POST.get('location','').strip()
 
-            profile, created = UserProfile.objects.get_or_create(user=user)
+            profile = form.instance
             profile.first_name = first_name
             profile.last_name = last_name
             profile.location = location
@@ -179,7 +179,8 @@ def contact_details(request):
 
             return redirect('user_profile')
         else:
-            form = UserProfileForm(instance=request.user.userprofile)
-            return render(request, 'contact-details.html', {'form': form})
+            print(form.errors)
+    else:
+        form = UserProfileForm(instance=request.user.userprofile)
 
     return render(request, 'contact-details.html')

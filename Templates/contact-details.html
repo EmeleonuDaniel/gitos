@@ -146,13 +146,13 @@ select::-ms-expand {
         font-size: 18px; /* Further reduce font size for very small screens */
     }
 }
-button {
+/*button {
   border: 0px;
   background-color: black;
   color: aliceblue;
   border-radius: 15px;
   padding: 10px;
-}
+}*/
 
 </style>
 </head>
@@ -235,16 +235,16 @@ button {
 
 <div class="main">  
   <div class="body">
-    <div class="image-upload">
-      <!-- The default image -->
-      <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" id="defaultImage" src="{% static 'images/default user.png' %}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
-      
-      <!-- Hidden file input -->
-      <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="previewImage(event)">
-  </div>
-  
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
+    <div class="image-upload">
+      <!-- The default image -->
+      <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" id="defaultImage" src="{{ user.userprofile.profile_pictures.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
+      
+      <!-- Hidden file input -->
+      <input type="file" id="imageInput" class="form-control" name="profile_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
+  </div>
+  
       <input type="text" placeholder="First Name" name="first_name" required>
       <input type="text" placeholder="Last Name" name="last_name" required>
       <label class="label" for="location">Select Location</label>
@@ -290,7 +290,7 @@ button {
           </select>
         </div>
       </div>
-      <button type="submit" >Submit</button>
+      <button type="submit" class="btn btn-primary" >Submit</button>
     </form>
   </div>
 </div>
