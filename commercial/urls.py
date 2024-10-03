@@ -19,3 +19,5 @@ urlpatterns = [
     path('contact-details/', views.contact_details, name='contact_details'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
+'''if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)'''

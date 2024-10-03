@@ -242,10 +242,8 @@ button {
       <!-- Hidden file input -->
       <input type="file" id="imageInput" style="display: none;" accept="image/*" onchange="previewImage(event)">
   </div>
-    {% if error %}
-    <p>{{error}}</p>
-    {% endif %}
-    <form method="POST">
+  
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <input type="text" placeholder="First Name" name="first_name" required>
       <input type="text" placeholder="Last Name" name="last_name" required>

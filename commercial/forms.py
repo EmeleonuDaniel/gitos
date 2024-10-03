@@ -12,5 +12,9 @@ class UserProfileForm(forms.ModelForm):
         model = UserProfile
         fields = ['profile_picture']
 
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            self.fields['profile_picture'].widget.attrs.update({'class': 'form-control'})
+
 
 

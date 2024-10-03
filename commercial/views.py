@@ -162,21 +162,24 @@ def vendor_profile(request):
 @login_required
 def contact_details(request):
     if request.method == 'POST':
-        user = request.user
-        first_name = request.POST.get('first_name','').strip()
-        last_name = request.POST.get('last_name','').strip()
-        location = request.POST.get('location','').strip()
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
+        if form.is_valid():
+            form.save()
+            # Update the manual fields after form.save()
+            user = request.user
+            first_name = request.POST.get('first_name','').strip()
+            last_name = request.POST.get('last_name','').strip()
+            location = request.POST.get('location','').strip()
 
-        if not first_name and last_name:
-            return render(request, 'register.html', {'error': 'First name nad last name are required'})
-    
-        profile, _ = UserProfile.objects.get_or_create(user=user)
-        profile.first_name = first_name
-        profile.last_name = last_name
-        profile.location = location
-        profile.save()
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            profile.first_name = first_name
+            profile.last_name = last_name
+            profile.location = location
+            profile.save()
 
-        return redirect('index')
-
+            return redirect('user_profile')
+        else:
+            form = UserProfileForm(instance=request.user.userprofile)
+            return render(request, 'contact-details.html', {'form': form})
 
     return render(request, 'contact-details.html')

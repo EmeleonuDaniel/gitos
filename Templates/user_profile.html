@@ -165,7 +165,7 @@
     </div>
     <div class="cal">
       <div style="display: flex; flex-direction: row;">
-        <img style="border-radius: 100%; margin-right: 1%;" src="" alt="profile picture"><p ><span style="font-weight: bold; text-transform: capitalize;">{{user.username}}</span></p>
+        <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" src="{{ user.userprofile.profile_image.url }}" alt="profile picture"><p ><span style="font-weight: bold; text-transform: capitalize;">{{user.userprofile.first_name}} {{user.userprofile.last_name}}</span></p>
         </div>
         {% if user.email %}
         <p>Email Address: <span style="font-weight: bold;">{{user.email}}</span></p>
