@@ -35,19 +35,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       margin-bottom: 20px;
     }
-    .cal {
-        margin-left: 20vw;
-        margin-top: 5vw;
-    }
-    button {
-      border-radius: 12px;
-      padding: 10px;
-      color: #ffffff;
-      background-color: black;
-      border: 0px;
-      padding: 15px;
+
+    .main img, p, button {
+      margin-top: 1%;
+      margin-bottom: 1%;
     }
 
     /* General Styles for All Screen Sizes */
@@ -161,20 +155,19 @@
       <h2 class="personal-details-heading">USER PROFILE</h2>
 </div>
 <div class="main">
-    
-    </div>
-    <div class="cal">
-      <div style="display: flex; flex-direction: row;">
-        <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" src="{{ user.userprofile.profile_pictures.url }}" alt="profile picture"><p ><span style="font-weight: bold; text-transform: capitalize;">{{user.userprofile.first_name}} {{user.userprofile.last_name}}</span></p>
-        </div>
-        {% if user.email %}
-        <p>Email Address: <span style="font-weight: bold;">{{user.email}}</span></p>
-        {% else %}
-        <p>Email Address: <span style="font-weight: bold;">Not specified</span></p>
-        {% endif %}
-        <button><a href="{% url 'manage' %}" style="color: #ffffff;">Become A Giftos Vendor</a></button>
-        </div>
-  </div>
+  <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" src="{{ user.userprofile.profile_picture.url }}" alt="profile picture">
+  {% if user.userprofile.first_name %}
+  <p ><span style="font-weight: bold; text-transform: capitalize;">{{user.userprofile.first_name}} {{user.userprofile.last_name}}</span></p>
+  {% else %}
+  <p><span style="font-weight: bold; text-transform: capitalize;">{{user.username}}</span></p>
+  {% endif %}
+  {% if user.userprofile.email %}
+  <p>Email Address: <span style="font-weight: bold;">{{user.userprofile.email}}</span></p>
+  {% else %}
+  <p>Email Address: <span style="font-weight: bold;">{{user.email}}</span></p>
+  {% endif %}
+  <a href="{% url 'manage' %}"><button class="btn btn-primary">Become A Giftos Vendor</button></a>
+</div>
 
   <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">
     <div class="social_container">

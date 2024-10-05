@@ -9,6 +9,7 @@ from datetime import datetime
 from .forms import VendorProfileForm
 from .models import UserProfile
 from .forms import UserProfileForm
+from .forms import VendorProfileForm
 
 def index(request):
     return render(request, 'index.html')
@@ -84,103 +85,90 @@ def manage(request):
 @login_required
 def register(request):
     if request.method == 'POST':
-        user = request.user #retrieve currently logged user
-        first_name = request.POST.get('first_name', '').strip()
-        last_name = request.POST.get('last_name', '').strip()#strip is only used as a safety precaution method to remove all whitespaces from the beginning and end of the string 
-        dob_str = request.POST.get('DOB', '').strip()
-        gender = request.POST.get('gender', '').strip()
-        address = request.POST.get('address', '').strip()
-        phone = request.POST.get('phone', '').strip()
-        package = request.POST.get('package', '').strip()
-        
-        if not first_name and last_name:
-            return render(request, 'register.html', {'error': 'First name nad last name are required'})
+        user = request.user 
+        vendorprofile,created = VendorProfile.objects.get_or_create(user=user)
+        form = VendorProfileForm(request.POST, request.FILES, instance=request.user.vendorprofile)
+        if form.is_valid():
+            form.save()
+            
+            store_name = request.POST.get('store_name', '').strip()
+            WA_link = request.POST.get('url', '').strip()
+            dob_str = request.POST.get('DOB', '').strip()
+            gender = request.POST.get('gender', '').strip()
+            store_address = request.POST.get('address', '').strip()
+            phone = request.POST.get('phone', '').strip()
+            package = request.POST.get('package', '').strip()
 
-        dob = None
-        if dob_str:
-            try:
-                dob = datetime.strptime(dob_str, '%d/%m/%Y').date() #convert DD/MM/YYYY to YYYY/MM/DD
-            except ValueError:
-                return render(request, 'register.html', {'error': 'Invalid date format. use dd/mm/yyyy'})
+            dob = None
+            if dob_str:
+                try:
+                    dob = datetime.strptime(dob_str, '%d/%m/%Y').date() #convert DD/MM/YYYY to YYYY/MM/DD
+                except ValueError:
+                    return render(request, 'register.html', {'error': 'Invalid date format. use dd/mm/yyyy'})
 
-        # Get or create the user profile record
-        profile, _ = VendorProfile.objects.get_or_create(user=user)
-        profile.first_name = first_name
-        profile.last_name = last_name
-        profile.DOB = dob
-        profile.gender = gender
-        profile.address = address
-        profile.phone = phone
-        profile.package = package
-        profile.save()
+            profile = form.instance
+            profile.brand_name = store_name
+            profile.WA_link = WA_link
+            profile.DOB = dob
+            profile.gender = gender
+            profile.address = store_address
+            profile.phone = phone
+            profile.package = package
+            profile.save()
 
-        sellers_group = Group.objects.get(name='sellers')
-        sellers_group.user_set.add(user)
+            vendors_group = Group.objects.get(name='vendors')
+            vendors_group.user_set.add(user)
 
-        return redirect('profile_success')  # Redirect to a success page or profile page
+            return redirect('vendor_profile')
+        else:
+            print(form.errors)
+    else:
+        user = request.user
+        vendorprofile,created = VendorProfile.objects.get_or_create(user=user)
+        form = VendorProfileForm(instance=request.user.vendorprofile)
+    return render(request,'register.html')
 
-    return render(request,'register.html')#come back later when you have a seller dashboard
-
-
-    
 def user_profile(request):
     return render(request, 'user_profile.html')
 
-'''@login_required
-def vendor_profile_setup(request,seller_id):
-    #Get the existing seller profile based on the seller id
-    seller_profile = get_object_or_404(VenProfile, id=seller_id)
-    #check if vendor profile for the seller profile already exists
-    try:
-        vendor_profile = VendorProfile.objects.get(seller_profile=seller_profile,user=user)
-    except VendorProfile.DoesNotExist:
-        vendor_profile = None
-    if request.method == 'POST':
-        form = VendorProfileForm(request.POST, request.FILES, instance=vendor_profile)
-        user = request.user
-        brand_name = request.POST.get('BrandName', '').strip()
-        WA_link = request.POST.get('url', '')
-        
-        profile, _ = VendorProfile.objects.get_or_create(user=user)
-
-        profile.brand_name = brand_name
-        profile.WA_link = WA_link
-        
-        if form.is_valid():
-            #Link the new vendor profile with the existing Seller profile
-            vendor_profile = form.save(commit=False)
-            vendor_profile.seller_profile = seller_profile
-            vendor_profile.save()
-
-        return redirect('vendor_profile')
-    
-    return render(request, 'vendor_profile_setup.html')'''
-
 def vendor_profile(request):
+    
     return render(request, 'vendor_profile.html')
 
 @login_required
 def contact_details(request):
     if request.method == 'POST':
+        user = request.user
+        userprofile, created = UserProfile.objects.get_or_create(user=user)
         form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile)
         if form.is_valid():
             form.save()
             # Update the manual fields after form.save()
-            user = request.user
+            
             first_name = request.POST.get('first_name','').strip()
             last_name = request.POST.get('last_name','').strip()
             location = request.POST.get('location','').strip()
+            email = request.POST.get('email', '').strip()
 
             profile = form.instance
             profile.first_name = first_name
             profile.last_name = last_name
             profile.location = location
+            profile.email = email
             profile.save()
 
             return redirect('user_profile')
         else:
             print(form.errors)
     else:
+        user = request.user
+        userprofile, created = UserProfile.objects.get_or_create(user=user)
         form = UserProfileForm(instance=request.user.userprofile)
 
     return render(request, 'contact-details.html')
+
+def vendor_profile(request):
+    return render(request, 'vendor profile.html')
+
+def vendor_details(request):
+    return render(request, 'vendor details.html')

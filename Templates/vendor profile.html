@@ -28,116 +28,29 @@
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
-
-<style>
-
-.main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 3%;
-}
-
-img {
-  margin-bottom: 3%;
-}
-.body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 300px;
-    width: 300px;
-}
-.body label {
-  text-align: left;
-}
-
-input[type="text"],input[type="email"] {
-  width: 300px;
-  height: 40px;
-  padding: 10px;
-  font-size: 16px;
-
-}
-
-input {
-    border: 1px solid grey;
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
-    border-radius: 10px;
-    padding: 5px;
-    width: 90%; /* Set to 90% for responsiveness */
-    max-width: 400px; /* Max width for larger screens */
-}
-input:focus, select:focus, option:focus {
-  outline: none;
-}
-
-/* General Label Styling */
-.label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    display: block;
-}
-
-/* Custom Select Wrapper */
-.custom-select-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: 400px;
-    margin-bottom: 20px;
-}
-
-/* Hover/Focus State */
-.custom-select:hover,
-.custom-select:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-/* Remove Default Dropdown Arrow in Browsers */
-select::-ms-expand {
-    display: none;
-}
-
-/* Media Queries for responsiveness */
-@media (max-width: 768px) {
+  <style>
     .main {
-        margin-left: 3%; /* Decrease margins for smaller screens */
-        margin-right: 3%;
+      margin-top: 50px;
+      margin-bottom: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-bottom: 20px;
     }
 
-    input {
-        width: 95%; /* Wider inputs on smaller screens */
+    .main img, p, button {
+      margin-top: 1%;
+      margin-bottom: 1%;
     }
-
-    .label {
-        font-size: 14px; /* Slightly smaller font on smaller screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .label {
-        font-size: 12px; /* Further reduce font size for very small screens */
-    }
-
-    input {
-        padding: 10px; /* Increase padding for better touch targets */
-    }
-}
 
     /* General Styles for All Screen Sizes */
 .personal-details-heading {
-  text-align: center;
-  font-size: 28px; /* Default font size */
-  font-weight: bold;
-  margin: 20px 0;
-  color: #333;
+    text-align: center;
+    font-size: 28px; /* Default font size */
+    font-weight: bold;
+    margin: 20px 0;
+    color: #333;
 }
 
 /* Responsive for Medium Screens (Tablets and Smaller) */
@@ -160,8 +73,7 @@ select::-ms-expand {
         font-size: 18px; /* Further reduce font size for very small screens */
     }
 }
-
-</style>
+  </style>
 </head>
 
 <body>
@@ -229,6 +141,9 @@ select::-ms-expand {
                 <i class="fa fa-search" aria-hidden="true"></i>
               </button>
             </form>
+            <a href="{% url 'vendor_details' %}">
+              <img src="{% static 'images/settings-icon.svg' %}" height="40%"  width="40%" style="margin-left: 40%;" alt="">
+            </a>
           </div>
         </div>
       </nav>
@@ -237,72 +152,11 @@ select::-ms-expand {
   </div>
 
 <div class="heading_container heading_center"></div>
-    <h2 class="personal-details-heading">PERSONAL DETAILS</h2>
+      <h2 class="personal-details-heading">VENDOR PROFILE</h2>
 </div>
-
-<div class="main">  
-  <div class="body">
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-    <div class="image-upload">
-      <!-- The default image -->
-      <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" id="defaultImage" src="{{ user.userprofile.profile_picture.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
-      
-      <!-- Hidden file input --> 
-      <input type="file" id="imageInput" class="form-control" name="profile_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
-    </div>
-  
-      <input type="text" placeholder="First Name" name="first_name" required>
-      <input type="text" placeholder="Last Name" name="last_name" required>
-      <input type="email" placeholder="Email Address" name="email" required>
-      <label class="label" for="location">Select Location</label>
-      <div class="custom-select-wrapper">
-        <div class="rs-select2 js-select-simple select-no-search">
-          <select name="location" id="location" class="custom-select" required>
-            <option disabled="disabled" selected="selected">Choose a State</option>
-            <option>Abia</option>
-            <option>Adamawa</option>
-            <option>Akwa Ibom</option>
-            <option>Anambra</option>
-            <option>Bauchi</option>
-            <option>Bayelsa</option>
-            <option>Benue</option>
-            <option>Borno</option>
-            <option>Cross River</option>
-            <option>Delta</option>
-            <option>Ebonyi</option>
-            <option>Edo</option>
-            <option>Ekiti</option>
-            <option>Enugu</option>
-            <option>Gombe</option>
-            <option>Imo</option>
-            <option>Jigawa</option>
-            <option>Kaduna</option>
-            <option>Kano</option>
-            <option>Katsina</option>
-            <option>Kebbi</option>
-            <option>Kogi</option>
-            <option>Kwara</option>
-            <option>Lagos</option>
-            <option>Nasarawa</option>
-            <option>Niger</option>
-            <option>Ogun</option>
-            <option>Ondo</option>
-            <option>Osun</option>
-            <option>Oyo</option>
-            <option>Plateau</option>
-            <option>Rivers</option>
-            <option>Sokoto</option>
-            <option>Taraba</option>
-            <option>Yobe</option>
-          </select>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary" >Submit</button>
-    </form>
-  </div>
+<div class="main">
+  <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" src="{{ user.vendorprofile.brand_picture.url }}" alt="profile picture">
 </div>
-
 
   <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">
     <div class="social_container">
@@ -390,22 +244,7 @@ select::-ms-expand {
 
   <!-- end info section -->
 
-  <script>
-    // Function to trigger the hidden file input when image is clicked
-function triggerUpload() {
-    document.getElementById('imageInput').click();
-}
 
-// Function to preview the uploaded image
-function previewImage(event) {
-    const reader = new FileReader();
-    reader.onload = function(){
-        const output = document.getElementById('defaultImage');
-        output.src = reader.result; // Set the image source to the uploaded file
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-  </script>
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">

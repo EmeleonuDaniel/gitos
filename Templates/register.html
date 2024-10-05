@@ -25,6 +25,15 @@
 
     <!-- Main CSS-->
     <link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
+
+    <style>
+        #image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,24 +42,27 @@
             <div class="card card-4">
                 <div class="card-body">
                     <h2 class="title">Giftos Vendor Registration Form</h2>
-                    <form method="POST" action="{% url 'register' %}">
+                    <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
                                     <label class="label">Store name</label>
-                                    <input class="input--style-4" type="text" name="brand_name" required>
+                                    <input class="input--style-4" type="text" name="store_name" required>
                                 </div>
                             </div>
-                            <div class="col-2">
+                            <div class="col-2" id="image">
                                 <div class="input-group">
                                     <label class="label">Store Profile Picture</label>
-                                    <input type="file" accept="image/*" name="profile_picture" required>
+                                    <!--The default imgae-->
+                                    <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" id="defaultImage" src="{{ user.vendorprofile.brand_picture.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
+                                    <!--The hidden file input-->
+                                    <input type="file" id="imageInput" class="form-control" name="brand_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Whatsapp link</label>
+                                    <label class="label">Whatsapp Contact</label>
                                     <input class="input--style-4" type="text" type="url" name="url" placeholder="https://wa.link/..." required>
                                 </div>
                             </div>
@@ -84,7 +96,7 @@
                         <div class="row row-space">
                             <div class="col-2">
                                 <div class="input-group">
-                                    <label class="label">Address</label>
+                                    <label class="label">Store Address</label>
                                     <input class="input--style-4" type="address" name="address" required>
                                 </div>
                             </div>
@@ -116,16 +128,31 @@
         </div>
     </div>
 
+
+    <script>
+        // Function to trigger the hidden file input when image is clicked
+    function triggerUpload() {
+        document.getElementById('imageInput').click();
+    }
+    
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function(){
+            const output = document.getElementById('defaultImage');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+      </script>
     <!-- Jquery JS-->
-    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <!-- Vendor JS-->
-    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
-    <script src="{% static 'vendor/datepicker/moment.min.js' %}"></script>
-    <script src="{% static 'vendor/datepicker/daterangepicker.js' %}"></script>
+<script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+<script src="{% static 'vendor/datepicker/moment.min.js' %}"></script>
+<script src="{% static 'vendor/datepicker/daterangepicker.js' %}"></script>
 
     <!-- Main JS-->
-    <script src="{% static 'js/global.js' %}"></script>
-
+<script src="{% static 'js/global.js' %}"></script>
 </body><!-- This templates was made by Colorlib (https://colorlib.com) -->
 
 </html>
