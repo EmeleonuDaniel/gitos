@@ -1,6 +1,6 @@
-from .models import VendorProfile
+from .models import VendorProfile,UserProfile,Product
 from django import forms
-from .models import UserProfile
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
@@ -16,6 +16,9 @@ class VendorProfileForm(forms.ModelForm):
         model = VendorProfile
         fields = ['brand_picture']
 
-
+class ProductForm(forms.ModelForm):
+    class Meta:
+        model = Product
+        fields = ['image1','image2','image3','image4','image5','image6',]
 
 

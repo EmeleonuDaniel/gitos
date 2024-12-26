@@ -30,137 +30,164 @@
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 
 <style>
-
-.main {
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.profile-card {
+    width: 80%;
+    max-width: 800px;
+    border-radius: 8px;
+    padding: 20px;
 }
 
-img {
-  margin-bottom: 3%;
-}
-.body {
+.header {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    height: 300px;
-    width: 300px;
-}
-.body label {
-  text-align: left;
-}
-
-input[type="text"],input[type="email"] {
-  width: 300px;
-  height: 40px;
-  padding: 10px;
-  font-size: 16px;
-
-}
-
-input {
-    border: 1px solid grey;
-    margin-top: 2.5%;
-    margin-bottom: 2.5%;
-    border-radius: 10px;
-    padding: 5px;
-    width: 90%; /* Set to 90% for responsiveness */
-    max-width: 400px; /* Max width for larger screens */
-}
-input:focus, select:focus, option:focus {
-  outline: none;
-}
-
-/* General Label Styling */
-.label {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 10px;
-    display: block;
-}
-
-/* Custom Select Wrapper */
-.custom-select-wrapper {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    max-width: 400px;
     margin-bottom: 20px;
 }
 
-/* Hover/Focus State */
-.custom-select:hover,
-.custom-select:focus {
-    border-color: #007bff;
-    outline: none;
+.profile-pic { 
+  margin-right: 3vw;
 }
 
-/* Remove Default Dropdown Arrow in Browsers */
-select::-ms-expand {
-    display: none;
+.profile-info h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
 }
 
-/* Media Queries for responsiveness */
-@media (max-width: 768px) {
-    .main {
-        margin-left: 3%; /* Decrease margins for smaller screens */
-        margin-right: 3%;
-    }
-
-    input {
-        width: 95%; /* Wider inputs on smaller screens */
-    }
-
-    .label {
-        font-size: 14px; /* Slightly smaller font on smaller screens */
-    }
+.profile-info p {
+    margin: 3px 0;
 }
 
-@media (max-width: 480px) {
-    .label {
-        font-size: 12px; /* Further reduce font size for very small screens */
-    }
-
-    input {
-        padding: 10px; /* Increase padding for better touch targets */
-    }
+.verified {
+    color: #007bff;
+    font-weight: bold;
 }
 
-    /* General Styles for All Screen Sizes */
+.status {
+    color: green;
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.feedback-btn, .contact-btn {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.feedback-btn:focus, .contact-btn:focus {
+  outline: none;
+}
+.feedback-btn {
+    background-color: #d38291;
+    color: white;
+}
+
+.contact-btn {
+    background-color: #db4566;
+    color: white;
+}
+
+
+.products {
+    display: flex;
+    gap: 15px;
+}
+
+.product-card {
+    width: 48%;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.product-card img {
+    width: 100%;
+    display: block;
+}
+
 .personal-details-heading {
   text-align: center;
-  font-size: 28px; /* Default font size */
+  font-size: 28px; 
   font-weight: bold;
   margin: 20px 0;
   color: #333;
 }
 
-/* Responsive for Medium Screens (Tablets and Smaller) */
 @media (max-width: 768px) {
     .personal-details-heading {
-        font-size: 24px; /* Slightly smaller font for tablets */
+        font-size: 24px; 
     }
 }
 
-/* Responsive for Small Screens (Mobile) */
+
 @media (max-width: 480px) {
     .personal-details-heading {
-        font-size: 20px; /* Smaller font for mobile */
+        font-size: 20px; 
     }
 }
 
-/* Responsive for Very Small Screens */
+
 @media (max-width: 320px) {
     .personal-details-heading {
-        font-size: 18px; /* Further reduce font size for very small screens */
+        font-size: 18px;
     }
 }
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
 
+.product-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 250px;
+    transition: transform 0.3s;
+    text-align: center;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+
+.product-card h2 {
+    font-size: 1.3em;
+    margin: 15px 0;
+    color: #333;
+}
+
+.price {
+    font-size: 1.2em;
+    color: black;
+    margin: 10px 0;
+}
+
+.view-btn {
+    display: inline-block;
+    margin: 15px 0 20px;
+    padding: 10px 20px;
+    background-color: #db4566;
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.view-btn:hover {
+    background-color: #ea244f;
+}
 </style>
 </head>
 
@@ -221,90 +248,58 @@ select::-ms-expand {
                 </span>
               </a>
             {% endif %}
-            <a href="">
-              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-            </a>
-            <form class="form-inline ">
-              <button class="btn nav_search-btn" type="submit">
-                <i class="fa fa-search" aria-hidden="true"></i>
-              </button>
-            </form>
           </div>
         </div>
       </nav>
     </header>
     <!-- end header section -->
-  </div>
+</div>
 
 <div class="heading_container heading_center"></div>
-    <h2 class="personal-details-heading">PERSONAL DETAILS</h2>
+  <h2 class="personal-details-heading">INVENTORY</h2>
 </div>
 
-<div class="main">  
-  <div class="body">
-    <form method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-    <div class="image-upload">
-      <!-- The default image -->
-      <img style="border-radius: 50%; object-fit: cover; width: 17vh; height: 17vh;" id="defaultImage" src="{{ user.userprofile.profile_picture.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
-      
-      <!-- Hidden file input --> 
-      <input type="file" id="imageInput" class="form-control" name="profile_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
-    </div>
-  
-      <input type="text" placeholder="First Name" name="first_name" >
-      <input type="text" placeholder="Last Name" name="last_name" >
-      <input type="email" placeholder="Email Address" name="email" >
-      <label class="label" for="location">Select Location</label>
-      <div class="custom-select-wrapper">
-        <div class="rs-select2 js-select-simple select-no-search">
-          <select name="location" id="location" class="custom-select" >
-            <option disabled="disabled" selected="selected">Choose a State</option>
-            <option>Abia</option>
-            <option>Adamawa</option>
-            <option>Akwa Ibom</option>
-            <option>Anambra</option>
-            <option>Bauchi</option>
-            <option>Bayelsa</option>
-            <option>Benue</option>
-            <option>Borno</option>
-            <option>Cross River</option>
-            <option>Delta</option>
-            <option>Ebonyi</option>
-            <option>Edo</option>
-            <option>Ekiti</option>
-            <option>Enugu</option>
-            <option>Gombe</option>
-            <option>Imo</option>
-            <option>Jigawa</option>
-            <option>Kaduna</option>
-            <option>Kano</option>
-            <option>Katsina</option>
-            <option>Kebbi</option>
-            <option>Kogi</option>
-            <option>Kwara</option>
-            <option>Lagos</option>
-            <option>Nasarawa</option>
-            <option>Niger</option>
-            <option>Ogun</option>
-            <option>Ondo</option>
-            <option>Osun</option>
-            <option>Oyo</option>
-            <option>Plateau</option>
-            <option>Rivers</option>
-            <option>Sokoto</option>
-            <option>Taraba</option>
-            <option>Yobe</option>
-          </select>
-        </div>
+<div class="profile-card">
+  <div class="header">
+      <div class="profile-pic">
+          <img style="border-radius: 50%; object-fit: cover; width: 11vh; height: 11vh;" src="{{ user.vendorprofile.brand_picture.url }}" alt="brand picture"><!--image is not in static, image is in database so you'll need to add url to the end to point to the location where the image is saved-->
       </div>
-      <button type="submit" class="btn btn-primary" >Submit</button>
-    </form>
+      <div class="profile-info">
+          <h1>{{user.vendorprofile.brand_name}}</h1>
+          <p><span class="verified">✔ Verified ID</span></p>
+          <p><span class="status">Active</span> on Giftos</p>
+      </div>
   </div>
+
+  <div class="actions">
+      <button class="feedback-btn">View feedback</button>
+      <button class="contact-btn" onclick="toggleContact()">Show contact</button>
+      <div id="contact-info" style="display: none;">
+      </div>
+  </div>
+
+  
+
+  <div class="product-list">
+    {% for product in products %}
+        <div class="product-card">
+            {% if product.image %}
+                <img src="{{ product.image1.url }}" alt="{{ product.name }}">
+            {% else %}
+                <img src="{% static 'images/glob_prod_img.png' %}" alt="No image available">
+            {% endif %}
+            <h2>{{ product.name }}</h2>
+            <p class="price">₦{{ product.price }}</p>
+            <a href="" class="view-btn">View Product</a>
+        </div>
+    {% endfor %}
 </div>
+</div>
+  
 
 
-  <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">
+
+<section class="info_section  layout_padding2-top" style="margin-top: 10vw;">
     <div class="social_container">
       <div class="social_box">
         <a href="">
@@ -389,23 +384,20 @@ select::-ms-expand {
   </section>
 
   <!-- end info section -->
-
   <script>
-    // Function to trigger the hidden file input when image is clicked
-function triggerUpload() {
-    document.getElementById('imageInput').click();
-}
-
-// Function to preview the uploaded image
-function previewImage(event) {
-    const reader = new FileReader();
-    reader.onload = function(){
-        const output = document.getElementById('defaultImage');
-        output.src = reader.result; // Set the image source to the uploaded file
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-  </script>
+    function toggleContact() {
+        const contactInfo = document.getElementById("contact-info");
+        const button = document.querySelector(".contact-btn");
+    
+        if (contactInfo.style.display === "none" || contactInfo.style.display === "") {
+            contactInfo.style.display = "block";
+            button.textContent = "{{ user.vendorprofile.phone }}";
+        } else {
+            contactInfo.style.display = "none";
+            button.textContent = "Show contact";
+        }
+    }
+    </script>
   <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
   <script src="{% static 'js/bootstrap.js' %}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">

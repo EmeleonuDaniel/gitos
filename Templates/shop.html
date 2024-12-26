@@ -28,6 +28,92 @@
   <link href="{% static 'css/style.css' %}" rel="stylesheet" />
   <!-- responsive style -->
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <style type="text/css">
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+.product-card {
+  width: 300px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  background-color: #fff;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-image img {
+  object-fit: cover;
+  width: 100%;
+  align-content: center;
+  height: 200px;
+}
+
+/* Product Details Section */
+.product-details {
+  padding: 15px;
+}
+
+.product-title {
+  font-size: 18px;
+  margin: 0 0 10px;
+  color: #333;
+  font-weight: bold;
+}
+
+.product-description {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.product-price {
+  font-size: 20px;
+  font-weight: bold;
+  color: #db4566;
+  margin-bottom: 10px;
+}
+
+/* Action Buttons */
+.product-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.product-actions button {
+  width: 48%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.buy-now {
+  background-color: #db4566;
+  color: white;
+}
+
+.buy-now:hover {
+  background-color: #ee2a55;
+}
+
+.add-to-cart {
+  background-color: #c2ad59;
+  color: white;
+}
+
+.add-to-cart:hover {
+  background-color: #e1b707;
+}
+  </style>
 </head>
 
 <body>
@@ -113,238 +199,54 @@
           Latest Products
         </h2>
       </div>
+      
       <div class="row">
+        {% for item in product_list %}
         <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p1.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Ring
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $200
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
+        <div class="product-card">
+        {% if item.image1 %}
+          <div class="product-image">
+            <img src="{{item.image1.url}}" alt="Product Image">
+          </div>
+        {% else %}
+        <div class="product-image">
+          <img src="{% static 'images/glob_prod_img.png' %}" alt="Product Image">
+        </div>
+        {% endif %}
+          <div class="product-details">
+            <h2 class="product-title">{{ item.name|truncatewords:7 }}</h2>
+            <p class="product-description">{{item.description|truncatewords:15}}</p>
+            <div class="product-price">₦{{item.price }}</div>
+            <div class="product-actions">
+              <a href=""></a><button class="buy-now">Buy Now</button></a>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p2.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Watch
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $300
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
         </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p3.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Teddy Bear
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $110
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p4.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Flower Bouquet
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $45
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p5.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Teddy Bear
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $95
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p6.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Flower Bouquet
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $70
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p7.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Watch
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $400
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/p8.png' %}" alt="">
-              </div>
-              <div class="detail-box">
-                <h6>
-                  Ring
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    $450
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
-          </div>
-        </div>
+        {% endfor %}
         {% for product in products %}
-        <div class="col-sm-6 col-md-4 col-lg-3">
-          <div class="box">
-            <a href="">
-              <div class="img-box">
-                <img src="{% static 'images/' %}{{ product.image }}" />
-              </div>
-              <div class="detail-box">
-                <h6>
-                  {{ product.title }}
-                </h6>
-                <h6>
-                  Price
-                  <span>
-                    ${{ product.price }}
-                  </span>
-                </h6>
-              </div>
-              <div class="new">
-                <span>
-                  New
-                </span>
-              </div>
-            </a>
+      <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="product-card">
+          <div class="product-image">
+            <img src="{% static 'images/' %}{{ product.image }}" alt="Product Image">
           </div>
+          <div class="product-details">
+            <h2 class="product-title">{{ product.title|truncatewords:7 }}</h2>
+            <p class="product-description">{{product.description|truncatewords:15}}</p>
+            <div class="product-price">${{product.price }}</div>
+            <div class="product-actions">
+              <button class="buy-now">Buy Now</button>
+              <button class="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </div>
         </div>
         {% endfor %}
       </div>
       <div class="btn-box">
-        <a href="">
-          View All Products
+        <a href="{% url 'sell_product' %}">
+          Sell Product
         </a>
       </div>
     </div>

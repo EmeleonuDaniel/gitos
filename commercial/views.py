@@ -1,15 +1,11 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from django.contrib.auth.models import User,Group,Permission
+from django.contrib.auth.models import User,Group
 from django.contrib.auth import authenticate,login as auth_login,logout as auth_logout
 from django.contrib import messages
-from .models import Products
+from .models import Products,Product,UserProfile,VendorProfile
 from django.contrib.auth.decorators import login_required
-from .models import VendorProfile
 from datetime import datetime
-from .forms import VendorProfileForm
-from .models import UserProfile
-from .forms import UserProfileForm
-from .forms import VendorProfileForm
+from .forms import VendorProfileForm,UserProfileForm
 
 def index(request):
     return render(request, 'index.html')
@@ -18,8 +14,9 @@ def contact(request):
     return render(request, 'contact.html')
 
 def shop(request):
+    product_list = Product.objects.all()
     products = Products.objects.all()
-    return render(request, 'shop.html', {'products': products})
+    return render(request, 'shop.html', {'products': products, 'product_list': product_list})
 
 def testimonial(request):
     return render(request, 'testimonial.html')
@@ -168,7 +165,61 @@ def contact_details(request):
     return render(request, 'contact-details.html')
 
 def vendor_profile(request):
+    
     return render(request, 'vendor profile.html')
 
 def vendor_details(request):
-    return render(request, 'vendor details.html')
+    if request.method == 'POST':
+        user = request.user
+        vendorprofile, created = VendorProfile.objects.get_or_create(user=user)
+        form = VendorProfileForm(request.POST, request.FILES, instance=request.user.vendorprofile)
+        if form.is_valid():
+            form.save()
+
+            brand_name = request.POST.get('brand_name','').strip()
+            address = request.POST.get('address','').strip()
+            phone = request.POST.get('phone','').strip()
+            WA_link = request.POST.get('WA_link','').strip()
+
+            profile = form.instance
+            profile.brand_name = brand_name
+            profile.address = address
+            profile.phone = phone
+            profile.WA_link = WA_link
+            profile.save()
+            return redirect('vendor_profile')
+        else:
+            print(form.errors)
+    else:
+        form = VendorProfileForm(instance=request.user.vendorprofile)    
+        return render(request, 'vendor details.html')
+
+@login_required
+def sell_product(request):
+    if request.method == 'POST':
+            name = request.POST.get('name','').strip()
+            description = request.POST.get('description','').strip()
+            price = request.POST.get('price','').strip()
+            stock = request.POST.get('stock','').strip()
+            category = request.POST.get('category','').strip()
+            product = Product.objects.create(vendor=request.user.vendorprofile,name=name, description=description, price=price, stock=stock, category=category)
+
+            product.image1 = request.FILES.get('image1')
+            product.image2 = request.FILES.get('image2')
+            product.image3 = request.FILES.get('image3')
+            product.image4 = request.FILES.get('image4')
+            product.image5 = request.FILES.get('image5')
+            product.image6 = request.FILES.get('image6')
+            product.save()
+        
+            return redirect('product_list')
+    else:       
+        return render(request, 'sell-product.html')
+
+def product_list(request):
+    product_list = Product.objects.filter(vendor=request.user.vendorprofile)
+    return render(request, 'product list.html',{'products': product_list,})
+
+def product_page(request, pk):
+    product =  get_object_or_404(Product, pk=pk)
+    return render(request, 'product page.html')

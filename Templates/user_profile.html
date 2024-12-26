@@ -155,7 +155,7 @@
       <h2 class="personal-details-heading">USER PROFILE</h2>
 </div>
 <div class="main">
-  <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" src="{{ user.userprofile.profile_picture.url }}" alt="profile picture">
+  <img style="border-radius: 50%; object-fit: cover; width: 17vh; height: 17vh;" src="{{ user.userprofile.profile_picture.url }}" alt="profile picture">
   {% if user.userprofile.first_name %}
   <p ><span style="font-weight: bold; text-transform: capitalize;">{{user.userprofile.first_name}} {{user.userprofile.last_name}}</span></p>
   {% else %}
@@ -166,7 +166,11 @@
   {% else %}
   <p>Email Address: <span style="font-weight: bold;">{{user.email}}</span></p>
   {% endif %}
+  {% if user.vendorprofile %}
+  <a href="{% url 'vendor_profile' %}"><button class="btn btn-primary">View Vendor Profile</button></a>
+  {% else %}
   <a href="{% url 'manage' %}"><button class="btn btn-primary">Become A Giftos Vendor</button></a>
+  {% endif %}
 </div>
 
   <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">

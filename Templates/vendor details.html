@@ -35,7 +35,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 3%;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
 }
 
 img {
@@ -54,7 +55,7 @@ img {
   text-align: left;
 }
 
-input[type="text"],input[type="email"] {
+input[type="text"],input[type="link"] {
   width: 300px;
   height: 40px;
   padding: 10px;
@@ -246,15 +247,16 @@ select::-ms-expand {
       {% csrf_token %}
     <div class="image-upload">
       <!-- The default image -->
-      <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" id="defaultImage" src="{{ user.vendorprofile.brand_picture.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
+      <img style="border-radius: 50%; object-fit: cover; width: 17vh; height: 17vh;" id="defaultImage" src="{{ user.vendorprofile.brand_picture.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
       
       <!-- Hidden file input --> 
-      <input type="file" id="imageInput" class="form-control" name="profile_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
+      <input type="file" id="imageInput" class="form-control" name="brand_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
     </div>
   
-      <input type="text" placeholder="" name="" required>
-      <input type="text" placeholder="" name="" required>
-      <input type="text" placeholder="" name="" required>
+      <input type="text" placeholder="Store Name" name="brand_name" />
+      <input type="text" placeholder="Store Address" name="address" />
+      <input type="text" placeholder="Phone number" name="phone" />
+      <input type="link" placeholder="Whatsapp Link" name="WA_link" />
       <button type="submit" class="btn btn-primary" >Submit</button>
     </form>
   </div>

@@ -30,9 +30,51 @@
   <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
 
 <style>
+.main-box {
+    width: 100%;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
 
+.upload-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+}
+
+.upload-box {
+    display: block;
+    padding: 25px;
+    background-color: #eef0f1;
+    border: 2px dashed #bcbcbc;
+    text-align: center;
+    cursor: pointer;
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-box:hover {
+    background-color: #d9dcdc;
+}
+
+.submit-btn {
+    margin-top: 25px;
+    padding: 12px 25px;
+    background-color: #f88598;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+
+        .submit-btn:hover {
+            background-color: #218838;
+        }
 .main {
-  margin-top: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,26 +83,20 @@
 img {
   margin-bottom: 3%;
 }
-.body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    height: 300px;
-    width: 300px;
-}
+
 .body label {
   text-align: left;
 }
 
-input[type="text"],input[type="email"] {
+input[type="text"],input[type="number"], textarea {
   width: 300px;
   height: 40px;
   padding: 10px;
   font-size: 16px;
 
 }
+
+
 
 input {
     border: 1px solid grey;
@@ -71,7 +107,7 @@ input {
     width: 90%; /* Set to 90% for responsiveness */
     max-width: 400px; /* Max width for larger screens */
 }
-input:focus, select:focus, option:focus {
+input:focus, select:focus, option:focus, textarea:focus {
   outline: none;
 }
 
@@ -237,68 +273,67 @@ select::-ms-expand {
   </div>
 
 <div class="heading_container heading_center"></div>
-    <h2 class="personal-details-heading">PERSONAL DETAILS</h2>
+    <h2 class="personal-details-heading">SELL PRODUCT ON GIFTOS</h2>
 </div>
 
 <div class="main">  
   <div class="body">
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-    <div class="image-upload">
-      <!-- The default image -->
-      <img style="border-radius: 50%; object-fit: cover; width: 17vh; height: 17vh;" id="defaultImage" src="{{ user.userprofile.profile_picture.url }}" height="70vh" alt="Click to Upload" onclick="triggerUpload()" style="cursor: pointer;">
-      
-      <!-- Hidden file input --> 
-      <input type="file" id="imageInput" class="form-control" name="profile_picture" style="display: none;" accept="image/*" onchange="previewImage(event)">
-    </div>
-  
-      <input type="text" placeholder="First Name" name="first_name" >
-      <input type="text" placeholder="Last Name" name="last_name" >
-      <input type="email" placeholder="Email Address" name="email" >
-      <label class="label" for="location">Select Location</label>
-      <div class="custom-select-wrapper">
+
+
+    <label class="label" for="name">Full Name of Product</label>
+    <input type="text" name="name" required>
+    <label class="label" for="description">Description</label>
+    <textarea name="description" ></textarea>
+    <label class="label" for="price">Price</label>
+    <input type="number" name="price" required>
+    <label class="label" for="stock">Stock</label>
+    <input type="number" placeholder="" name="stock" required>
+    <label class="label" for="location">Select Category</label>
+    <div class="custom-select-wrapper">
         <div class="rs-select2 js-select-simple select-no-search">
-          <select name="location" id="location" class="custom-select" >
-            <option disabled="disabled" selected="selected">Choose a State</option>
-            <option>Abia</option>
-            <option>Adamawa</option>
-            <option>Akwa Ibom</option>
-            <option>Anambra</option>
-            <option>Bauchi</option>
-            <option>Bayelsa</option>
-            <option>Benue</option>
-            <option>Borno</option>
-            <option>Cross River</option>
-            <option>Delta</option>
-            <option>Ebonyi</option>
-            <option>Edo</option>
-            <option>Ekiti</option>
-            <option>Enugu</option>
-            <option>Gombe</option>
-            <option>Imo</option>
-            <option>Jigawa</option>
-            <option>Kaduna</option>
-            <option>Kano</option>
-            <option>Katsina</option>
-            <option>Kebbi</option>
-            <option>Kogi</option>
-            <option>Kwara</option>
-            <option>Lagos</option>
-            <option>Nasarawa</option>
-            <option>Niger</option>
-            <option>Ogun</option>
-            <option>Ondo</option>
-            <option>Osun</option>
-            <option>Oyo</option>
-            <option>Plateau</option>
-            <option>Rivers</option>
-            <option>Sokoto</option>
-            <option>Taraba</option>
-            <option>Yobe</option>
-          </select>
+            <select name="category" id="location" class="custom-select" required>
+                <option disabled="disabled" selected="selected">Choose an option</option>
+                <option>Clothing</option>
+                <option>Health & Beauty</option>
+                <option>Food</option>
+                <option>Vehicles</option>
+                <option>Laptops</option>
+                <option>Phones & Tablets</option>
+                <option>Home, Appliances & Furniture</option>
+                <option>Fashion</option>
+                <option>Babies & Kids</option>
+                <option>Jewellery</option>
+                <option>Electronics</option>
+                <option>Other</option>
+            </select>
         </div>
-      </div>
-      <button type="submit" class="btn btn-primary" >Submit</button>
+    </div>
+        <div class="main-box">
+            <h2>Upload 3-6 Images</h2>
+            <div class="upload-area">
+                <label class="upload-box" for="file1">Image 1
+                    <input type="file" id="file1" name="image1" accept="image/*" multiple required>
+                </label>
+                <label class="upload-box" for="file2">Image 2
+                    <input type="file" id="file2" name="image2" accept="image/*" multiple required>
+                </label>
+                <label class="upload-box" for="file3">Image 3
+                    <input type="file" id="file3" name="image3" accept="image/*" multiple required>
+                </label>
+                <label class="upload-box" for="file4">Image 4
+                    <input type="file" id="file4" name="image4" accept="image/*" multiple>
+                </label>
+                <label class="upload-box" for="file5">Image 5
+                  <input type="file" id="file5" name="image5" accept="image/*" multiple>
+                </label>
+                <label class="upload-box" for="file6">Image 6
+                  <input type="file" id="file6" name="image6" accept="image/*" multiple>
+                </label>
+            </div>
+        </div>
+      <button type="submit" class="submit-btn" >Submit</button>
     </form>
   </div>
 </div>

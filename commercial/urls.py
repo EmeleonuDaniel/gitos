@@ -15,9 +15,12 @@ urlpatterns = [
     path('manage/', views.manage, name='manage'),
     path('manage/register/',views.register, name='register'),
     path('user profile/', views.user_profile, name='user_profile'),
-    path('vendor_profile/', views.vendor_profile, name='vendor_profile'),
-    path('contact-details/', views.contact_details, name='contact_details'),
+    path('vendor profile/', views.vendor_profile, name='vendor_profile'),
+    path('contact details/', views.contact_details, name='contact_details'),
     path('vendor profile/', views.vendor_profile, name='vendor_profile'),
     path('vendor details/', views.vendor_details ,name='vendor_details'),
+    path('sell product/', views.sell_product, name='sell_product'),
+    path('product list/', views.product_list, name='product_list'),
+    path('product page/<int: pk>', views.product_page, name='product page'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 

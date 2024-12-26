@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/x-icon">
+
+  <title>
+    Giftos
+  </title>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: #f5f5f5;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    header h1 {
+      margin: 0;
+    }
+    
+    header input {
+      padding: 8px;
+      width: 300px;
+    }
+    
+    nav {
+      background-color: #f1f1f1;
+      padding: 10px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      margin-right: 5px;
+    }
+    
+    .product-container {
+      display: flex;
+      padding: 20px;
+    }
+    
+    .product-image img {
+      width: 300px;
+      height: auto;
+    }
+    
+    .product-info {
+      margin-left: 20px;
+    }
+    
+    .flash-sale {
+      background-color: #ffcccb;
+      padding: 10px;
+      border-radius: 5px;
+      margin: 10px 0;
+    }
+    
+    .price {
+      color: red;
+      font-weight: bold;
+    }
+    
+    .add-to-cart {
+      padding: 10px 20px;
+      background-color: orange;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .add-to-cart:hover {
+      background-color: darkorange;
+    }
+    
+    .delivery, .seller-info {
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+    
+      </style>
+</head>
+
+<body>
+  <header></header>
+    <h1>JUMIA</h1>
+    <input type="text" placeholder="Search products, brands and categories">
+  </header>
+
+  <nav>
+    <a href="#">Home</a> > <a href="#">Health & Beauty</a> > <a href="#">Personal Care</a> > <a href="#">Skin Care</a>
+  </nav>
+
+  <main class="product-container">
+    <section class="product-image">
+      <img src="product.jpg" alt="NIVEA Body Lotion">
+      <p>Body Lotion + Free 250ml Pack</p>
+    </section>
+
+    <section class="product-info">
+      <h2>{{ item.name|truncatewords:7 }}</h2>
+        <p><span class="price">₦4,715</span></p>
+        <p>89 items left</p>
+      </div>
+      
+      <button class="add-to-cart">Add to Cart</button>
+
+      <section class="delivery">
+        <h3>Delivery & Returns</h3>
+        <p>Choose your location:</p>
+        <select>
+          <option value="Lagos">Lagos</option>
+          <option value="Ibadan">Ibadan</option>
+          <option value="Abuja">Abuja</option>
+        </select>
+        <select>
+          <option value="Lekki-Ajah">Lekki-Ajah (Sangotedo)</option>
+        </select>
+        <p>Pickup Station: Delivery Fee ₦600</p>
+        <p>Door Delivery: Delivery Fee ₦990</p>
+        <p>Return Policy: Free return within 7 days</p>
+      </section>
+    </section>
+  </main>
+
+  <aside class="seller-info">
+    <h4>Seller Information</h4>
+    <p>Jumia</p>
+    <p>100% Seller Score</p>
+  </aside>
+
+  <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">
+    <div class="social_container">
+      <div class="social_box">
+        <a href="">
+          <i class="fa fa-facebook" aria-hidden="true"></i>
+        </a>
+        <a href="">
+          <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+        <a href="">
+          <i class="fa fa-instagram" aria-hidden="true"></i>
+        </a>
+        <a href="">
+          <i class="fa fa-youtube" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+    <div class="info_container ">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              ABOUT US
+            </h6>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="info_form ">
+              <h5>
+                Newsletter
+              </h5>
+              <form action="#">
+                <input type="email" placeholder="Enter your email">
+                <button>
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              NEED HELP
+            </h6>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet, consectetur adipiscing elit, sed doLorem ipsum dolor sit amet,
+            </p>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <h6>
+              CONTACT US
+            </h6>
+            <div class="info_link-box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span> Gb road 123 london Uk </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>+01 12345678901</span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span> demo@gmail.com</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- footer section -->
+    <footer class=" footer_section">
+      <div class="container">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">Free Html Templates</a>
+        </p>
+      </div>
+    </footer>
+    <!-- footer section -->
+
+  </section>
+
+  <!-- end info section -->
+
+
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+
+</html>

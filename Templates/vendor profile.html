@@ -39,9 +39,9 @@
       margin-bottom: 20px;
     }
 
-    .main img, p, button {
-      margin-top: 1%;
-      margin-bottom: 1%;
+    .main img, p {
+      margin-top: 1.5vh;
+      margin-bottom: 1.5vh;
     }
 
     /* General Styles for All Screen Sizes */
@@ -117,9 +117,11 @@
           <div class="user_option">
             {% if user.is_authenticated %}
             <i class="fa fa-user" aria-hidden="true"></i>
+            <a href="{% url 'user_profile' %}">
             <span style="cursor: pointer; margin-right: 10px; margin-left: 10px;">
               {{ user.username }}
             </span>
+            </a>
               <a href="{% url 'logout' %}">
                 <span>
                   Log out
@@ -155,7 +157,17 @@
       <h2 class="personal-details-heading">VENDOR PROFILE</h2>
 </div>
 <div class="main">
-  <img style="border-radius: 50%; object-fit: cover; width: 70px; height: 70px;" src="{{ user.vendorprofile.brand_picture.url }}" alt="profile picture">
+  <img style="border-radius: 50%; object-fit: cover; width: 17vh; height: 17vh;" src="{{ user.vendorprofile.brand_picture.url }}" alt="brand picture">
+
+  <p >Store Name: <span style="font-weight: bold; text-transform: capitalize;">{{user.vendorprofile.brand_name}}</span></p>
+  <p >Store Address: <span style="font-weight: bold; text-transform: capitalize;">{{user.vendorprofile.address}}</span></p>
+  <p >Store Contact: <span style="font-weight: bold; text-transform: capitalize;">{{user.vendorprofile.phone}}</span></p>
+
+  {% if user.userprofile.email %}
+  <p>Email Address: <span style="font-weight: bold;">{{user.userprofile.email}}</span></p>
+  {% else %}
+  <p>Email Address: <span style="font-weight: bold;">{{user.email}}</span></p>
+  {% endif %}
 </div>
 
   <section class="info_section  layout_padding2-top" style="margin-top: 10vw;">
